@@ -1,0 +1,68 @@
+include staticheader.pug
+h1.whiteText.center.spaceAbove.spaceBelow How does Caffeine Work?
+div.howItWorksInfoContainer
+    div.howItWorksUnit
+        button.leftButton.generalButton Previous Video
+    div.howItWorksUnit
+        iframe.largeSpaceBelow.centerBlock.js-youtube-video(width="800" height="515" src="https://www.youtube.com/embed/foLf5Bi9qXs" frameborder="0" allowfullscreen)
+    div.howItWorksUnit
+        button.rightButton.generalButton Next Video
+br
+p.center.js-video-credit.whiteText Lesson by Hanan Qasim, directed by Adriatic Animation.
+br
+br
+
+
+
+
+script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+script(src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js")
+script.
+    // Fade Background to a darker color for better contrast using Jquery's UI library
+    $('body').animate({backgroundColor: '#3a3b3d'}, 'fast');
+    $('.jumbotron').slideUp();
+
+
+    // This code allows for the user to cycle between videos using jquery to update the iframe src attribute
+
+    // List of URLs through which the user can cycle
+
+
+    let videoData = {
+        youtubeUrlArr: [
+        'https://www.youtube.com/embed/foLf5Bi9qXs',
+        'https://www.youtube.com/embed/jOfquPE1cnU',
+        'https://www.youtube.com/embed/4YOwEqGykDM',
+        ],
+        videoCredit: [
+            'Video credit: Hanan Qasim, directed by Adriatic Animation.',
+            'Video credit: <a href="https://www.youtube.com/channel/UCOU-lyJtyRZ5yvjPk1th7uw"> Medicurio',
+            'Video credit: <a href="https://www.youtube.com/channel/UCC552Sd-3nyi_tk2BudLUzA"> AsapScience'
+        ],
+        videoIndex:0
+    }
+
+
+    // listen for video index increases 
+    $('.rightButton').click(() => {
+        if (videoData.videoIndex < (videoData.youtubeUrlArr.length-1)) {
+        console.log('that video was index: ' + videoData.videoIndex);
+        videoData.videoIndex++;
+        console.log('this video is: ' + videoData.videoIndex);
+        $('.js-youtube-video').attr('src',videoData.youtubeUrlArr[videoData.videoIndex])
+        $('.js-video-credit').html(videoData.videoCredit[videoData.videoIndex])
+    }
+
+    });
+
+
+
+    $('.leftButton').click(() => {
+         if (videoData.videoIndex > 0) {
+        console.log('this video was index: ' + videoData.videoIndex);
+        videoData.videoIndex--;
+        $('.js-youtube-video').attr('src',videoData.youtubeUrlArr[videoData.videoIndex])
+        $('.js-video-credit').html(videoData.videoCredit[videoData.videoIndex])
+         }
+
+    });
